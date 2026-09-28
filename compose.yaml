@@ -1,0 +1,71 @@
+name: ${APP_COMPOSE_PROJECT_NAME:-analizador-de-facturas}
+
+services:
+  db:
+    image: postgres:17-alpine
+    pull_policy: always
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-analizador_de_facturas}
+      POSTGRES_USER: ${POSTGRES_USER:-analizador_de_facturas}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD en .env}
+    volumes:
+      - datos_postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 10s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  api:
+    image: ${IMAGE_NAMESPACE:-rogervega33}/analizador-de-facturas-api:${IMAGE_TAG:-latest}
+    pull_policy: always
+    restart: unless-stopped
+    command:
+      - sh
+      - -c
+      - |
+        alembic upgrade head
+        exec uvicorn analizador_de_facturas.api:app --host 0.0.0.0 --port 8000
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-analizador_de_facturas}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-analizador_de_facturas}
+      AUTH_COOKIE_SECURE: ${AUTH_COOKIE_SECURE:-false}
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/salud')"]
+      interval: 10s
+      timeout: 3s
+      retries: 15
+      start_period: 20s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  frontend:
+    image: ${IMAGE_NAMESPACE:-rogervega33}/analizador-de-facturas-web:${IMAGE_TAG:-latest}
+    pull_policy: always
+    restart: unless-stopped
+    ports:
+      - "${WEB_BIND_ADDRESS:-0.0.0.0}:${WEB_PORT:-8080}:80"
+    depends_on:
+      api:
+        condition: service_healthy
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  datos_postgres:
+    name: ${POSTGRES_VOLUME:-analizador-de-facturas_datos_postgres}
