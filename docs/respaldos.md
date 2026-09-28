@@ -1,4 +1,4 @@
-# Respaldar y restaurar base de datos PostgreSQL
+# Respaldar y restaurar la base de datos PostgreSQL
 
 Ejecuta los comandos desde la carpeta que contiene `compose.yaml` y `.env`.
 
@@ -8,7 +8,7 @@ En Linux o macOS:
 
 ```bash
 mkdir -p backups
-docker compose exec -T db sh -c 'pg_dump -U "$POSTGRES_USER" -d "$POSTGRES_DB" -Fc' > "backups/analizador-$(date +%Y%m%d-%H%M%S).dump"
+docker compose exec -T db sh -c 'pg_dump -U "$POSTGRES_USER" -d "$POSTGRES_DB" -Fc' > "backups/analizador-facturas-$(date +%Y%m%d-%H%M%S).dump"
 ```
 
 En PowerShell:
