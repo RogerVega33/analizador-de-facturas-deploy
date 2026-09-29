@@ -6,7 +6,41 @@ Las facturas se almacenan en una base de datos PostgreSQL junto con su XML origi
 
 Su propósito es facilitar el seguimiento de gastos deducibles y ayudarte a medir el avance hacia tus metas tributarias durante el año.
 
-# Instalación con Docker
+## Demo
+
+### Facturas
+
+Importa tus facturas, consúltalas mediante filtros y revisa su información en detalle.
+
+Si deseas descargar automáticamente tus facturas del SRI, consulta el proyecto [Descargar comprobantes del SRI](https://github.com/RogerVega33/Descargar-comprobantes-SRI).
+
+![Consulta y gestión de facturas](docs/assets/demo-facturas.gif)
+
+### Proveedores y reglas
+
+Consulta tus proveedores y configura reglas para automatizar la clasificación de sus gastos deducibles.
+
+![Administración de proveedores y reglas](docs/assets/demo-proveedores-reglas.gif)
+
+### Clasificación de gastos
+
+Clasifica tus facturas aplicando las reglas configuradas o asigna manualmente la categoría correspondiente. También reconoce cuando una factura ya cuenta con etiquetas de gastos deducibles directamente desde el proveedor.
+
+![Clasificación de gastos](docs/assets/demo-clasificacion-gastos.gif)
+
+### Procesamiento automático de gastos
+
+Procesa todas las facturas de un proveedor con un solo clic.
+
+![Procesamiento automático de todos los gastos](docs/assets/demo-clasificacion-procesar-todo.gif)
+
+### Objetivos anuales
+
+Define tus objetivos anuales de deducción y consulta mes a mes tu avance.
+
+![Seguimiento de objetivos anuales](docs/assets/demo-objetivos-anuales.gif)
+
+## Instalación con Docker
 
 Este paquete instala la aplicación Analizador de Facturas usando imágenes públicas de Docker Hub.
 
@@ -37,16 +71,16 @@ La primera vez que accedas, la aplicación te pedirá crear el usuario administr
 
 El API espera a que PostgreSQL esté disponible, aplica automáticamente las migraciones pendientes y después inicia el servidor. El API y PostgreSQL no publican puertos; solamente el frontend es accesible desde el equipo anfitrión.
 
-## Comandos habituales
+## Comandos útiles
 
 ```bash
-# Consultar el estado
+# Consultar el estado de la aplicación
 docker compose ps
 
-# Consultar los registros
+# Consultar los logs
 docker compose logs --tail=100 frontend api db
 
-# Detener la aplicación conservando los datos
+# Detener la aplicación (los datos de la base de datos no se eliminan)
 docker compose stop
 
 # Volver a iniciarla
@@ -59,13 +93,13 @@ Para publicar la aplicación en Internet, utiliza HTTPS mediante un proxy invers
 
 ## Actualizaciones y versiones
 
-Consulta [Actualizar o recuperar una versión](docs/actualizacion.md). Antes de una actualización importante, crea un [respaldo de la base de datos](docs/respaldos.md).
+Consulta [Actualizar o recuperar una versión](docs/actualizacion.md).
+
+Antes de una actualización importante, crea un [respaldo de la base de datos](docs/respaldos.md).
 
 ## Persistencia y seguridad
 
 Los datos se guardan en el volumen indicado por `POSTGRES_VOLUME`. `docker compose down` elimina los contenedores pero conserva ese volumen; `docker compose down -v` también elimina los datos y no debe utilizarse en una instalación con información que quieras conservar.
-
-El archivo `.env` contiene la contraseña de PostgreSQL y está excluido de Git. No lo publiques ni lo compartas.
 
 ## Licencia
 
