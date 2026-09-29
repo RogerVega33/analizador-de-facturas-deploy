@@ -24,7 +24,7 @@ services:
         max-file: "3"
 
   api:
-    image: ${IMAGE_NAMESPACE:-rogervega33}/analizador-de-facturas-api:${IMAGE_TAG:-latest}
+    image: rogervega33/analizador-de-facturas-api:${IMAGE_TAG:-latest}
     pull_policy: always
     restart: unless-stopped
     command:
@@ -52,7 +52,7 @@ services:
         max-file: "3"
 
   frontend:
-    image: ${IMAGE_NAMESPACE:-rogervega33}/analizador-de-facturas-web:${IMAGE_TAG:-latest}
+    image: rogervega33/analizador-de-facturas-web:${IMAGE_TAG:-latest}
     pull_policy: always
     restart: unless-stopped
     ports:
