@@ -26,6 +26,8 @@ Consulta tus proveedores y configura reglas para automatizar la clasificación d
 
 Clasifica tus facturas aplicando las reglas configuradas o asigna manualmente la categoría correspondiente. También reconoce cuando una factura ya cuenta con etiquetas de gastos deducibles directamente desde el proveedor.
 
+Desde esta pantalla también puedes exportar los gastos deducibles en formato CSV al seleccionar un propietario y un año. Este archivo se puede importar en la extensión del navegador [Asistente de Gastos](https://github.com/RogerVega33/asistente-de-gastos-ec) para el llenado automático de gastos directamente en la página del SRI.
+
 ![Clasificación de gastos](docs/assets/demo-clasificacion-gastos.gif)
 
 ### Procesamiento automático de gastos
