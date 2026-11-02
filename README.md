@@ -10,9 +10,11 @@ Su propósito es facilitar el seguimiento de gastos deducibles y ayudarte a medi
 
 ### Facturas
 
-Importa tus facturas, consúltalas mediante filtros y revisa su información en detalle.
+Importa tus facturas, consúltalas mediante filtros y revisa su información en detalle. 
 
-Si deseas descargar automáticamente tus facturas del SRI, consulta el proyecto [Descargar comprobantes del SRI](https://github.com/RogerVega33/Descargar-comprobantes-SRI).
+**Nuevo:** Gráfico de gastos por proveedor y Gráfico de gastos por período.
+
+Si deseas descargar automáticamente tus facturas del SRI, consulta la extensión de Chrome [Asistente de Gastos EC](https://github.com/RogerVega33/asistente-de-gastos-ec).
 
 ![Consulta y gestión de facturas](docs/assets/demo-facturas.gif)
 
@@ -26,7 +28,7 @@ Consulta tus proveedores y configura reglas para automatizar la clasificación d
 
 Clasifica tus facturas aplicando las reglas configuradas o asigna manualmente la categoría correspondiente. También reconoce cuando una factura ya cuenta con etiquetas de gastos deducibles directamente desde el proveedor.
 
-Desde esta pantalla también puedes exportar los gastos deducibles en formato CSV al seleccionar un propietario y un año. Este archivo se puede importar en la extensión del navegador [Asistente de Gastos](https://github.com/RogerVega33/asistente-de-gastos-ec) para el llenado automático de gastos directamente en la página del SRI.
+Desde esta pantalla también puedes exportar los gastos deducibles en formato CSV al seleccionar un propietario y un año. Este archivo se puede importar en la extensión de Chrome [Asistente de Gastos](https://github.com/RogerVega33/asistente-de-gastos-ec) para el llenado automático de gastos directamente en la página del SRI.
 
 ![Clasificación de gastos](docs/assets/demo-clasificacion-gastos.gif)
 
@@ -51,8 +53,6 @@ Incluye el frontend web, el API y una base de datos PostgreSQL persistente. Es c
 ## Requisitos
 
 - Docker Engine con el complemento Docker Compose, o Docker Desktop.
-- Conexión a Internet durante la primera instalación y las actualizaciones de versión.
-- Un puerto disponible para la página web; el predeterminado es `8080`.
 
 ## Instalación
 
@@ -95,13 +95,13 @@ Para publicar la aplicación en Internet, utiliza HTTPS mediante un proxy invers
 
 ## Actualizaciones y versiones
 
-Consulta [Actualizar o recuperar una versión](docs/actualizacion.md).
-
-Antes de una actualización importante, crea un [respaldo de la base de datos](docs/respaldos.md).
+Consulta: [Actualizar o recuperar una versión](docs/actualizacion.md).
 
 ## Persistencia y seguridad
 
 Los datos se guardan en el volumen indicado por `POSTGRES_VOLUME`. `docker compose down` elimina los contenedores pero conserva ese volumen; `docker compose down -v` también elimina los datos y no debe utilizarse en una instalación con información que quieras conservar.
+
+Para información sobre backups y restauración consulta: [Respaldar y restaurar base de datos](docs/respaldos.md).
 
 ## Licencia
 
